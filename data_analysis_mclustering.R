@@ -32,9 +32,9 @@ x = pca.furn$x
 library(ggplot2)
 variances <- data.frame(variances=pca.furn$sdev**2, principal_component=1:length(pca.furn$sdev))
 variances[,1] <- variances[,1]/sum(variances[,1])
-varPlot <- ggplot(variances, aes(principal_component, variances)) + geom_bar(stat="identity", fill="gray") + geom_line() + labs(title="Wave-I Elbow Plot of Principal Components",x="Principal Components",y="Proportion of Variance")
+varPlot <- ggplot(variances, aes(principal_component, variances)) + geom_bar(stat="identity", fill="gray") + geom_line() + labs(x="Principal Components",y="Proportion of Variance")
 varPlot
-ggsave("elbow_wave1.pdf", height=5, width=5, units='in')
+ggsave("elbow_wave1_est.pdf", height=5, width=5, units='in')
 
 ### Cumulative Plot ###
 variances[,1] <- cumsum(variances[,1])/sum(variances[,1])
@@ -101,12 +101,12 @@ tab.val = cbind(rep(dim(furn)[1],3), preval[,1], rmean, rsd, rep(NA,3), rep(NA,3
 preval = t(preval[,-1])
 
 ### Prevalence Box Plots ###
-colnames(preval) = c("05%","10%","20%")
+colnames(preval) = c("5%","10%","20%")
 
-plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_brewer(palette="Blues") + theme(legend.position="none") 
-plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=0.1595,col="red",linetype="dashed")
-plt + labs(title="Wave-I Boxplots for Prevalence(MCLUST)",x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
-ggsave("plot_mclust_wave1.pdf", height=5, width=5, units='in')
+plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_manual(values = c("#99FFCC", "#99CCFF", "#CCCCCC")) + theme(legend.position="none") + scale_x_discrete(limits=c("5%","10%","20%"))
+plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=(length(which(EDEPI == 1))/length(EDEPI)),col="red",linetype="dashed")
+plt + labs(x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
+ggsave("plot_mclust_wave1_est.pdf", height=5, width=5, units='in')
 
 
 
@@ -129,9 +129,9 @@ x = pca.furn$x
 library(ggplot2)
 variances <- data.frame(variances=pca.furn$sdev**2, principal_component=1:length(pca.furn$sdev))
 variances[,1] <- variances[,1]/sum(variances[,1])
-varPlot <- ggplot(variances, aes(principal_component, variances)) + geom_bar(stat="identity", fill="gray") + geom_line() + labs(title="Wave-II Elbow Plot of Principal Components",x="Principal Components",y="Proportion of Variance")
+varPlot <- ggplot(variances, aes(principal_component, variances)) + geom_bar(stat="identity", fill="gray") + geom_line() + labs(x="Principal Components",y="Proportion of Variance")
 varPlot
-ggsave("elbow_wave2.pdf", height=5, width=5, units='in')
+ggsave("elbow_wave2_est.pdf", height=5, width=5, units='in')
 
 
 ### Cumulative Plot ###
@@ -201,12 +201,12 @@ tab.val = rbind(tab.val, cbind(rep(dim(furn)[1],3), preval[,1], pt2, sqrt(vpt2),
 preval = t(preval[,-1])
 
 ### Prevalence Box Plots ###
-colnames(preval) = c("05%","10%","20%")
+colnames(preval) = c("5%","10%","20%")
 
-plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_brewer(palette="Blues") + theme(legend.position="none") 
-plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=0.1022,col="red",linetype="dashed")
-plt + labs(title="Wave-II Boxplots for Prevalence(MCLUST)",x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
-ggsave("plot_mclust_wave2.pdf", height=5, width=5, units='in')
+plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_manual(values = c("#99FFCC", "#99CCFF", "#CCCCCC")) + theme(legend.position="none") + scale_x_discrete(limits=c("5%","10%","20%"))
+plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=(length(which(EDEPI == 1))/length(EDEPI)),col="red",linetype="dashed")
+plt + labs(x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
+ggsave("plot_mclust_wave2_est.pdf", height=5, width=5, units='in')
 
 
 ##################
@@ -228,9 +228,9 @@ x = pca.furn$x
 library(ggplot2)
 variances <- data.frame(variances=pca.furn$sdev**2, principal_component=1:length(pca.furn$sdev))
 variances[,1] <- variances[,1]/sum(variances[,1])
-varPlot <- ggplot(variances, aes(principal_component, variances)) + geom_bar(stat="identity", fill="gray") + geom_line() + labs(title="Wave-III Elbow Plot of Principal Components",x="Principal Components",y="Proportion of Variance")
+varPlot <- ggplot(variances, aes(principal_component, variances)) + geom_bar(stat="identity", fill="gray") + geom_line() + labs(x="Principal Components",y="Proportion of Variance")
 varPlot
-ggsave("elbow_wave3.pdf", height=5, width=5, units='in')
+ggsave("elbow_wave3_est.pdf", height=5, width=5, units='in')
 
 ### Cumulative Plot ###
 variances[,1] <- cumsum(variances[,1])/sum(variances[,1])
@@ -305,9 +305,9 @@ write.csv(tab.val,"Stagewise_Prevalence_Mclust_est.csv")
 preval = t(preval[,-1])
 
 ### Prevalence Box Plots ###
-colnames(preval) = c("05%","10%","20%")
+colnames(preval) = c("5%","10%","20%")
 
-plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_brewer(palette="Blues") + theme(legend.position="none") 
-plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=0.1569,col="red",linetype="dashed")
-plt + labs(title="Wave-III Boxplots for Prevalence(MCLUST)",x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
-ggsave("plot_mclust_wave3.pdf", height=5, width=5, units='in')
+plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_manual(values = c("#99FFCC", "#99CCFF", "#CCCCCC")) + theme(legend.position="none") + scale_x_discrete(limits=c("5%","10%","20%"))
+plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=(length(which(EDEPI == 1))/length(EDEPI)),col="red",linetype="dashed")
+plt + labs(x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
+ggsave("plot_mclust_wave3_est.pdf", height=5, width=5, units='in')

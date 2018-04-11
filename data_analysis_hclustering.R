@@ -36,7 +36,7 @@ clustercut = cut(clusters,h=27)
 pdf('dendogram.hclust_wave1_est.pdf')
 clustercut$upper %>% set("branches_k_color", value = c("hotpink2","lightseagreen"), k = 2) %>% set("branches_lwd", 2.0) %>% set("labels", "") %>% hang.dendrogram(hang = -1) %>% plot()
 clusters %>% rect.dendrogram(k = 2, border = 8, lty = 5, lwd = 2, prop_k_height = -1.0)
-legend("topright",c("MDD","NON-MDD"), fill=c("hotpink2","lightseagreen"))
+#legend("topright",c("MDD","NON-MDD"), fill=c("hotpink2","lightseagreen"))
 dev.off()
 
 ### Ordering Sample ###
@@ -98,12 +98,11 @@ tab.val = cbind(rep(dim(furn)[1],3), preval[,1], rmean, rsd, rep(NA,3), rep(NA,3
 preval = t(preval[,-1])
 
 ### Prevalence Box Plots ###
-colnames(preval) = c("05%","10%","20%")
+colnames(preval) = c("5%","10%","20%")
 
-
-plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_brewer(palette="Blues") + theme(legend.position="none") 
-plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=0.1595,col="red",linetype="dashed")
-plt + labs(title="Wave-I Boxplots for Prevalence(HCLUST)",x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
+plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_manual(values = c("#99FFCC", "#99CCFF", "#CCCCCC")) + theme(legend.position="none") + scale_x_discrete(limits=c("5%","10%","20%"))
+plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=(length(which(EDEPI == 1))/length(EDEPI)),col="red",linetype="dashed")
+plt + labs(x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
 ggsave("plot_hclust_wave1_est.pdf", height=5, width=5, units='in')
 
 
@@ -130,9 +129,9 @@ clustercut = cut(clusters,h=25)
 
 ### Dendrogram ###
 pdf('dendogram.hclust_wave2_est.pdf')
-clustercut$upper %>% set("branches_k_color", value = c("hotpink2","lightseagreen"), k = 2) %>% set("branches_lwd", 2.0) %>% set("labels", "") %>% hang.dendrogram(hang = -1) %>% plot(main="Wave-II Screening Test Dendrogram")
-clusters %>% rect.dendrogram(k = 2, border = 8, lty = 5, lwd = 2, prop_k_height = -1.6)
-legend("topright",c("MDD","NON-MDD"), fill=c("hotpink2","lightseagreen"))
+clustercut$upper %>% set("branches_k_color", value = c("hotpink2","lightseagreen"), k = 2) %>% set("branches_lwd", 2.0) %>% set("labels", "") %>% hang.dendrogram(hang = -1) %>% plot()
+clusters %>% rect.dendrogram(k = 2, border = 8, lty = 5, lwd = 2, prop_k_height = -1.2)
+#legend("topright",c("MDD","NON-MDD"), fill=c("hotpink2","lightseagreen"))
 dev.off()
 
 ### Ordering Sample ###
@@ -198,11 +197,11 @@ tab.val = rbind(tab.val, cbind(rep(dim(furn)[1],3), preval[,1], pt2, sqrt(vpt2),
 preval = t(preval[,-1])
 
 ### Prevalence Box Plots ###
-colnames(preval) = c("05%","10%","20%")
+colnames(preval) = c("5%","10%","20%")
 
-plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_brewer(palette="Blues") + theme(legend.position="none") 
-plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=0.1022,col="red",linetype="dashed")
-plt + labs(title="Wave-II Boxplots for Prevalence(HCLUST)",x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
+plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_manual(values = c("#99FFCC", "#99CCFF", "#CCCCCC")) + theme(legend.position="none") + scale_x_discrete(limits=c("5%","10%","20%"))
+plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=(length(which(EDEPI == 1))/length(EDEPI)),col="red",linetype="dashed")
+plt + labs(x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
 ggsave("plot_hclust_wave2_est.pdf", height=5, width=5, units='in')
 
 
@@ -228,9 +227,9 @@ clustercut = cut(clusters,h=20)
 
 ### Dendrogram ###
 pdf('dendogram.hclust_wave3_est.pdf')
-clustercut$upper %>% set("branches_k_color", value = c("hotpink2","lightseagreen"), k = 2) %>% set("branches_lwd", 2.0) %>% set("labels", "") %>% hang.dendrogram(hang = -1) %>% plot(main="Wave-III Screening Test Dendrogram")
-clusters %>% rect.dendrogram(k = 2, border = 8, lty = 5, lwd = 2, prop_k_height = -1.58)
-legend("topright",c("MDD","NON-MDD"), fill=c("hotpink2","lightseagreen"))
+clustercut$upper %>% set("branches_k_color", value = c("hotpink2","lightseagreen"), k = 2) %>% set("branches_lwd", 2.0) %>% set("labels", "") %>% hang.dendrogram(hang = -1) %>% plot()
+clusters %>% rect.dendrogram(k = 2, border = 8, lty = 5, lwd = 2, prop_k_height = -0.8)
+#legend("topright",c("MDD","NON-MDD"), fill=c("hotpink2","lightseagreen"))
 dev.off()
 
 ### Ordering Sample ###
@@ -301,9 +300,9 @@ write.csv(tab.val,"Stagewise_Prevalence_Hclust_est.csv")
 preval = t(preval[,-1])
 
 ### Prevalence Box Plots ###
-colnames(preval) = c("05%","10%","20%")
+colnames(preval) = c("5%","10%","20%")
 
-plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_brewer(palette="Blues") + theme(legend.position="none") 
-plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=0.1569,col="red",linetype="dashed")
-plt + labs(title="Wave-III Boxplots for Prevalence(HCLUST)",x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
+plt = ggplot(data=melt(preval),aes(as.character(X2),value,fill=as.factor(X2))) + geom_boxplot() + scale_fill_manual(values = c("#99FFCC", "#99CCFF", "#CCCCCC")) + theme(legend.position="none") + scale_x_discrete(limits=c("5%","10%","20%"))
+plt = plt + stat_summary(fun.y=mean, geom="point", shape=17, size=2, col="red") + geom_hline(yintercept=(length(which(EDEPI == 1))/length(EDEPI)),col="red",linetype="dashed")
+plt + labs(x="Percent of Negative Screened Individuals",y="Predicted Prevalence") + ylim(0.0,0.4)
 ggsave("plot_hclust_wave3_est.pdf", height=5, width=5, units='in')
